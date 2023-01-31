@@ -1,0 +1,83 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    background-color: greenyellow;
+    color: #333;
+    transition: all 1s ease;
+}
+
+.btn-container{
+    margin-top: 50px;
+}
+.dark-mode {
+    background-color: #2C3639;
+    color: #fff;
+    transition: all 1s ease;
+  }
+h1{
+    font-weight: bold;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 50px;
+    background: #2247AB;
+    background: linear-gradient(to top, #2247AB 32%, #CC571D 50%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.container-fluid {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    margin-top: 50px;
+    transition: all 1s ease;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 700px;
+    padding: 25px;
+    border: 2px solid;
+    border-radius: 30px;
+    background-color: #7B8FA1;
+    color: #202020;
+    transition: all 1s ease;
+}
+.dark-mode .box {
+    background-color: black;
+    color: #fff;
+    transition: all 1s ease;
+  }
+.box h2 {
+    width: 100%;
+    text-align: center;
+    font-size: 25px;
+}
+.formulario{
+    margin-top: 40px;
+    width: 100%;
+    text-align: center;
+    font-size: 25px;
+    transition: all 1s ease;
+}
+.dark-mode .formulario {
+    color: white;
+    transition: all 1s ease;
+  }
+  
+ @media only screen and (max-width: 767px) {
+    .box {
+        width: 100%;
+        padding: 15px;
+        font-size: 16px;
+    }
+    }

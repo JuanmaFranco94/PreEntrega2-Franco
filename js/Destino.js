@@ -5,3 +5,6 @@ class Destino {
         this.tarifa = tarifa
     }
 }
+
+
+

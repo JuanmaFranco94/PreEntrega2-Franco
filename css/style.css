@@ -51,6 +51,7 @@ h1{
     background-color: #7B8FA1;
     color: #202020;
     transition: all 1s ease;
+    margin-bottom: 50px;
 }
 .dark-mode .box {
     background-color: black;

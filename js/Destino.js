@@ -1,7 +1,7 @@
 class Destino {
-    constructor(nombre, opcion, tarifa) {
+    constructor(nombre, disponible, tarifa) {
         this.nombre = nombre
-        this.opcion = opcion
+        this.disponible = disponible
         this.tarifa = tarifa
     }
 }

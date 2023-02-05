@@ -1,7 +1,13 @@
 
 /*SIMULADOR DE CALCULO DEL COSTO DE FLETES - TRANSPORTE NUEVA ROMA*/
 //Toggle-button para modo oscuro
-const botonColorMode = document.querySelector("#color-mode")
+
+const toggleBtn = document.querySelector("#toggleBtn");
+  toggleBtn.addEventListener("click", function() {
+    toggleBtn.classList.toggle("dark");
+});
+
+const botonColorMode = document.querySelector("#toggleBtn")
 const body = document.body;
 
 let darkMode = localStorage.getItem("dark-mode");
@@ -16,23 +22,33 @@ function desactivarDarkMode () {
     localStorage.setItem("dark-mode", "desactivado");
 }
 
-if (darkMode === "activado"){
-    activarDarkMode();
-} else{
-    desactivarDarkMode ()
-}
+darkMode === "activado" ? activarDarkMode() : desactivarDarkMode();
 
 botonColorMode.addEventListener("click", () => {
     darkMode = localStorage.getItem("dark-mode")
     if (darkMode === "activado") {
       desactivarDarkMode();
-      botonColorMode.innerHTML = "Cambiar a Modo Oscuro";
+      botonColorMode.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon-stars-fill" viewBox="0 0 16 16"> <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/> <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/></svg>';
     } else {
       activarDarkMode();
-      botonColorMode.innerHTML = "Cambiar a Modo Claro";
+      botonColorMode.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-brightness-high-fill" viewBox="0 0 16 16"> <path d="M12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/></svg>';
     }
   })
 
+//Configuracion del modal "calculadora"
+const botonModalCentro = document.querySelector("#boton-modal-centro");
+const modalCentro = document.querySelector("#modal-centro");
+const cerrarModalCentro = document.querySelector("#cerrar-modal-centro");
+
+botonModalCentro.addEventListener("click", () => {
+  modalCentro.classList.add("active");
+  toggleBtn.style.display="none";
+}) 
+
+cerrarModalCentro.addEventListener("click", () => {
+  modalCentro.classList.remove("active");
+  toggleBtn.style.display="block";
+})
 
 //Seteamos valores por default para los inputs  de bultos y valor declarado.
   window.onload = function() {
@@ -42,10 +58,10 @@ botonColorMode.addEventListener("click", () => {
 
 
 // Tomamos referencias para los elementos del fomrulario
-let destino_1 = new Destino("Buenos Aires", 1, 600);
-let destino_2 = new Destino("Rosario", 2, 400);
-let destino_3 = new Destino("El Trebol", 3, 350);
-let destino_4 = new Destino("Santa Fe", 4, 300);
+let destino_1 = new Destino("Buenos Aires", "Si", 600);
+let destino_2 = new Destino("Rosario", "Si", 400);
+let destino_3 = new Destino("El Trebol", "Si", 350);
+let destino_4 = new Destino("Santa Fe", "Si", 300);
 
 const nuestrosDestinos = []
 nuestrosDestinos.unshift(destino_1);
@@ -103,7 +119,6 @@ calculateButton.addEventListener("click", function() {
     console.log("El valor declarado de la mercaderia es: " + valorDeclarado)
 });
 
-
 //Agregamos otro eventListener para resetear los datos que ingresa el usuario
 document.getElementById("resetButton").addEventListener("click", function(){
     document.getElementById("packageInput").value = "1";
@@ -112,135 +127,65 @@ document.getElementById("resetButton").addEventListener("click", function(){
   });
 
 //Por ultimo, guardamos en el localStorage el array de objetos con nuestros destinos disponibles
+
 //Convertimos el array a un string
 localStorage.setItem("destinos", JSON.stringify(nuestrosDestinos))
 //reconvertimos el string para que se nos devuelva el objeto como tal
 const destinosLocalStorage = JSON.parse(localStorage.getItem("destinos"));
-console.log(destinosLocalStorage);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-let bultos;
-let precioFinal;
-
-let destino_1 = new Destino("Buenos Aires", 1, 600);
-let destino_2 = new Destino("Rosario", 2, 400);
-let destino_3 = new Destino("El Trebol", 3, 350);
-let destino_4 = new Destino("Santa Fe", 4, 300);
-
-const nuestrosDestinos = []
-nuestrosDestinos.unshift(destino_1);
-nuestrosDestinos.push(destino_2, destino_3, destino_4);
-console.log(nuestrosDestinos)
-
-//display 
-const preciosDestinos = nuestrosDestinos.map(item => {
-    const precios = {};
-
-    precios[item.nombre] = item.tarifa;
-    return precios;
-})
-console.log(JSON.stringify(preciosDestinos))
-
-for (let nombre in nuestrosDestinos) {
-	console.log(nombre + ":", nuestrosDestinos[nombre]);
-}
-
-function calculoFlete(bultos, tarifa, valorDeclarado){
-    let cf = (bultos * tarifa) + (valorDeclarado * 0.006);
-    return cf;
-}*/
-
-/* Arranca el programa */
-//Se le solicita al usuario que ingrese un destino al cual enviar el/los bulto/s y se le informa por medio de un 'alert' la opcion elegida.
-/*
-let destino = Number(prompt('Elegí uno de nuestros destinos: \n1- Buenos Aires. \n2- Rosario. \n3- El Trebol. \n4- Santa Fe.'));
-if (destino == 1){
-    alert("Usted eligió el destino 'Buenos Aires'")
-}
-if (destino == 2) {
-    alert("Usted eligió el destino 'Rosario'")
-}
-if (destino == 3){
-    alert("Usted eligió el destino 'El Trebol'")
-}
-if (destino == 4){ 
-    alert("Usted eligió el destino 'Santa Fe'")
-}
-
-//Se le solicita al usuario que ingrese la cantidad de bultos a enviar. Esta no puede ser menor o igual a 0. se le informa por medio de un 'alert' la opcion elegida.
-do {
-    bultos = Number(prompt("Introduzca la cantidad de bultos (en numeros): "));
-    if (bultos <= 0){
-        alert("Los bultos deben ser mayores a 0");
-    }
-    else{
-        alert("Usted ingresó " + bultos + " bultos.")    
-    }
-} while (bultos <= 0);
-
-//Se le solicita al usuario que ingrese el valor de la mercaderia a enviar. El 0,06% del valor se agrega al costo a modo de seguro de mercaderia.
-let valorDeclarado = Number(prompt("Introduzca el Valor Declarado (sin puntos ni comas): "));
-
-if (destino == 1) {  
-    precioFinal = calculoFlete(bultos, destino_1.tarifa, valorDeclarado);
-}
-if (destino == 2){
-    precioFinal = calculoFlete(bultos, destino_2.tarifa, valorDeclarado);
-}
-if (destino == 3){
-    precioFinal = calculoFlete(bultos, destino_3.tarifa, valorDeclarado);
-}
-if (destino == 4){ 
-    precioFinal = calculoFlete(bultos, destino_4.tarifa, valorDeclarado);
-}
-
-//Se imprime el detalle de la cotizacion.
-console.log("Usted ingreso " + bultos + " bultos")
-console.log("Usted ingreso $" + valorDeclarado + " de Valor Declarado")
-console.log("El costo final del flete es $" + precioFinal.toFixed(2))
-
-function clearFields() {
-    document.getElementById("exampleSelect1").selectedIndex = 0;
-    document.getElementById("exampleSelect2").selectedIndex = 0;
-    document.getElementById("exampleNumber1").value = "";
-    document.getElementById("exampleNumber2").value = "";
-    }
+// Guardamos los ultimos datos en localStorage
+localStorage.setItem("lastCalculation", JSON.stringify({
+    destination: destinationInput.value,
+    packages: packageInput.value,
+    value: valueInput.value,
+    }));
     
+// Recuperamos los datos de localStorage
+let lastCalculation = JSON.parse(localStorage.getItem("lastCalculation"));
+if (lastCalculation) {
+destinationInput.value = lastCalculation.destination;
+packageInput.value = lastCalculation.packages;
+valueInput.value = lastCalculation.value;
+}
+
+// Mostramos los datos en la página
+let calculationHistory = document.createElement("div");
+calculationHistory.innerHTML = `
+<br>
+    <h3><strong>Último cálculo realizado</strong></h3>
+    <p><strong>Destino: </strong>${lastCalculation.destination}</p>
+    <p><strong>Bultos: </strong>${lastCalculation.packages}</p>
+    <p><strong>Valor Declarado: </strong>${lastCalculation.value}</p>
+`;
+document.getElementById("result").appendChild(calculationHistory);
 
 
-*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

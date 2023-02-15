@@ -21,8 +21,8 @@ cerrarModalCentro.addEventListener("click", () => {
   modalCentro.classList.remove("active");
   Swal.fire({
     title: 'Atencion!',
-    text: 'Estas seguro de querer salir?',
-    icon: 'question',
+    text: 'Estas saliendo de la calculadora!',
+    icon: 'warning',
     iconColor: '#000',
     confirmButtonText: 'Aceptar'
   })
@@ -63,27 +63,59 @@ function onlyNumberKey(evt) {
 }
 
 
-// Funcion para calcular el costo del flete
-function calculateCost(bultos, destino, valorDeclarado) {
-  const destinationObject = nuestrosDestinos.find(dest => dest.nombre === destino);
-  return destinationObject ? bultos * destinationObject.tarifa + valorDeclarado * 0.006 : "Destino invalido";
-  }
+// Función para calcular el costo del flete
+async function calculateCost(bultos, destinos, valorDeclarado) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      const destinationObject = nuestrosDestinos.find(dest => dest.nombre === destinos);
+      resolve(destinationObject ? bultos * destinationObject.tarifa + valorDeclarado * 0.006 : "Destino invalido");
+    }, 2000);
+  });
+}
 
 
-// Agregamos un eventListener al boton de "calcular"
-calculateButton.addEventListener("click", function() {
-    // Invocamos los inputs del usuario
-    const origen = originInput.value;
-    const destinos = destinationInput.value;
-    const bultos = Number(packageInput.value);
-    const valorDeclarado = Number(valueInput.value);
-    // Hacer el calculo
-    const cost = calculateCost(bultos, destinos, valorDeclarado);
+function waitTwoSeconds() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve();
+    }, 2000); // espera 2 segundos
+  });
+}
+
+// Evento click del botón de calcular
+calculateButton.addEventListener("click", async function() {
+  // Desactivar botón mientras se realiza el cálculo
+  calculateButton.disabled = true;
+
+  // Limpiar resultados previos
+  resultDiv.innerHTML = "";
+
+  // Mostrar loader
+  loading.style.display = "block";
+
+  // Obtener inputs del usuario
+  const origen = originInput.value;
+  const destinos = destinationInput.value;
+  const bultos = Number(packageInput.value);
+  const valorDeclarado = Number(valueInput.value);
+
+  // Calcular costo y esperar el resultado
+  try {
+    const costo = await calculateCost(bultos, destinos, valorDeclarado);
+
     // Mostrar resultado en pantalla
-    resultDiv.innerHTML = "El costo del envio de " + bultos + " bulto(s) desde " + origen + " hasta " + destinos + " es de $" + cost.toFixed(2);
-    console.log("Cantidad de bultos ingresados: " + bultos)
-    console.log("El destino elegido fue: "+ destinos)
-    console.log("El valor declarado de la mercaderia es: " + valorDeclarado)
+    resultDiv.innerHTML = `El costo del envio de ${bultos} bulto(s) desde ${origen} hasta ${destinos} es de $${costo.toFixed(2)}`;
+    console.log(`Cantidad de bultos ingresados: ${bultos}`);
+    console.log(`El destino elegido fue: ${destinos}`);
+    console.log(`El valor declarado de la mercaderia es: ${valorDeclarado}`);
+  } catch (error) {
+    // Mostrar mensaje de error en pantalla
+    resultDiv.innerHTML = error;
+  } finally {
+    // Habilitar botón y ocultar loader
+    calculateButton.disabled = false;
+    loading.style.display = "none";
+  }
 });
 
 //Agregamos otro eventListener para resetear los datos que ingresa el usuario

@@ -167,6 +167,18 @@ h1{
     color: white;
     width: 50%;
   }
+  
+  #loading-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  #loading{
+    display: none;
+    
+  }
+
   .swal2-popup{
     font-family: 'Raleway', sans-serif;
     color: #000;

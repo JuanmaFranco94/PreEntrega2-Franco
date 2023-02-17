@@ -1,0 +1,29 @@
+{
+    "ciudades": [
+      {
+        "nombre": "Buenos Aires",
+        "calle": "Avenida Corrientes 123",
+        "telefono": "011 5555-5555",
+        "email": "buenosaires@empresa.com"
+      },
+      {
+        "nombre": "Rosario",
+        "calle": "Calle San Luis 456",
+        "telefono": "0341 4444-4444",
+        "email": "rosario@empresa.com"
+      },
+      {
+        "nombre": "El Trebol",
+        "calle": "Calle Belgrano 789",
+        "telefono": "03401 6666-6666",
+        "email": "eltrebol@empresa.com"
+      },
+      {
+        "nombre": "Santa Fe",
+        "calle": "Calle San Martín 1010",
+        "telefono": "0342 7777-7777",
+        "email": "santafe@empresa.com"
+      }
+    ]
+  }
+  

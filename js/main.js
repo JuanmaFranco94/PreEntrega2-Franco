@@ -1,5 +1,36 @@
 
 /*SIMULADOR DE CALCULO DEL COSTO DE FLETES - TRANSPORTE NUEVA ROMA*/
+//Utilizo una archivo JSON local y fetch() para mostrar los destinos disponibles del transporte
+fetch('data/ciudades.json')
+  .then(response => response.json())
+  .then(data => {
+    const ciudades = data.ciudades;
+    const contenedor = document.getElementById('ciudades-contenedor');
+
+    ciudades.forEach(ciudad => {
+      const tarjeta = document.createElement('div');
+      tarjeta.classList.add('ciudad-tarjeta');
+
+      const nombreCiudad = document.createElement('h2');
+      nombreCiudad.textContent = ciudad.nombre;
+      tarjeta.appendChild(nombreCiudad);
+
+      const direccion = document.createElement('p');
+      direccion.textContent = 'Dirección: ' + ciudad.calle;
+      tarjeta.appendChild(direccion);
+
+      const telefono = document.createElement('p');
+      telefono.textContent = 'Teléfono: ' + ciudad.telefono;
+      tarjeta.appendChild(telefono);
+
+      const email = document.createElement('p');
+      email.textContent = 'Email: ' + ciudad.email;
+      tarjeta.appendChild(email);
+
+      contenedor.appendChild(tarjeta);
+    });
+  });
+
 //Toggle-button para modo oscuro
 const btnSwitch = document.querySelector('#switch');
 btnSwitch.addEventListener('click', () => {
